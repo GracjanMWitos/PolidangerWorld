@@ -8,23 +8,24 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject NotStarted;
     [SerializeField] GameObject Started;
     [SerializeField] GameObject Completed;
+    private bool waveStarted;
     public bool waveComplete;
-    public int enemyLeft;
-    [SerializeField] int enemyNumberToSpawn;
+    [SerializeField] ushort enemyNumberToSpawn;
     [Header("Configuration")]
     [SerializeField] string gate_name;
     private GameObject gate;
     [SerializeField] TrigerAndCollisionDetection trigger;
     [SerializeField] GameObject enemy;
     [SerializeField] Transform[] enemySpots;
+    public ScoreMenager scoreMenager;
     [Header("Timer")]
     [SerializeField] private float timer;
-    [SerializeField] int timeBtwSpawns;
+    [SerializeField] float timeBtwSpawns;
     
     void Start()
     {
         timer = timeBtwSpawns;
-        enemyLeft = enemyNumberToSpawn;
+        scoreMenager.enemyLeft = enemyNumberToSpawn;
         gate = GameObject.Find(gate_name);
     }
 
@@ -36,24 +37,17 @@ public class EnemySpawner : MonoBehaviour
     }
     void StateChange()
     {
-
-
-        if (trigger.isTrigering)
-        {
-            NotStarted.SetActive(false);
-            Started.SetActive(true);
-        }
         if (waveComplete == true)
         {
             Completed.SetActive(true);
+            gate.SetActive(true);
         }
     }
     void EnemySpawning()
     {
         int randomPos = Random.Range(0, enemySpots.Length);
-        if (trigger.isTrigering == true)
+        if (waveStarted)
         {
-
             if (enemyNumberToSpawn > 0)
                 if (timer <= 0)
                 {
@@ -64,11 +58,20 @@ public class EnemySpawner : MonoBehaviour
             if (timer > 0)
                 timer -= Time.deltaTime;
 
-            if (enemyLeft == 0)
+            if (scoreMenager.enemyLeft == 0)
             {
                 waveComplete = true;
+                gate.SetActive(false);
             }
         }
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "OperationCenter")
+        {
+            NotStarted.SetActive(false);
+            Started.SetActive(true);
+            waveStarted = true;
+        }
+    }
 }

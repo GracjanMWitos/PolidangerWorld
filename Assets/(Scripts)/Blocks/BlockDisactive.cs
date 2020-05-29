@@ -4,43 +4,40 @@ using UnityEngine;
 
 public class BlockDisactive : MonoBehaviour
 {
-    public bool isTouchingPower;
-    public GameObject blockToDisactive;
+    public bool isTouching;
     public AudioClip powerSound;
     private AudioSource audioSource;
-    public Transform playerPos;
-    private Rigidbody2D rb;
-    public int score;
+    [SerializeField] GameObject buttonSprite;
+    private ScoreMenager scores;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.Play();
-        rb = GetComponent<Rigidbody2D>();
+        scores = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
     }
     private void Update()
     {
-        if (isTouchingPower && Input.GetKeyDown(KeyCode.E))
+        if (isTouching && Input.GetKeyDown(KeyCode.E))
         {
-            blockToDisactive.SetActive(true);
-            gameObject.SetActive(false);
-
+            Destroy(this.gameObject);
+            scores.switchesTurnedOn += 1;
         }
-
+        buttonSprite.SetActive(isTouching);
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            isTouchingPower = true;
+            isTouching = true;
         }
-
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            isTouchingPower = false;
+            isTouching = false;
+            
         }
     }
 }

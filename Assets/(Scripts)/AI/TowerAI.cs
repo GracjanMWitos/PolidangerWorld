@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class TowerAI : MonoBehaviour
 {
-    [SerializeField] PlayerControler playerPos;
-        void Start()
-    {
-        
-    }
+    private PlayerControler playerPos;
+    private CameraController cameraController;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
+    }
     void Update()
     {
-        Vector3 dir = playerPos.transform.position - transform.position;
+        cameraController.LockAtObjectChange();
+
+        Vector3 dir = cameraController.target.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg -90f;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }

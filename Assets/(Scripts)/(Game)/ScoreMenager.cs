@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ScoreMenager : MonoBehaviour
 {
-    public int score;
-    void Start()
-    {
-        score = 0;
-    }
-
-    // Update is called once per frame
-    public void RiseScore()
-    {
-        score += 1;
-    }
+    public ushort enemyLeft;
+    public ushort xp;
+    public ushort blockDestoried;
+    public ushort switchesTurnedOn;
+    [Header("UpgradePoints")]
+    public ushort heavy_upgradePoints;
+    public ushort ligth_upgradePoints;
+    public ushort technology_upgradePoints;
+    public ushort melee_upgradePoints;
 }

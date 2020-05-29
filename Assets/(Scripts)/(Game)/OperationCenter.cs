@@ -4,63 +4,131 @@ using UnityEngine;
 
 public class OperationCenter : MonoBehaviour
 {
-
     [Header("Other")]
-    [SerializeField] GameObject e_button;
-    bool playerIsClose;
+    [SerializeField] private GameObject e_button;
+    [SerializeField] private GameObject disactiveCollider;
+    private PlayerControler playerControler;
+    [SerializeField] public bool playerIsClose;
     [Header("Spots")]
-    [SerializeField] GameObject playerGO;
+    [SerializeField]private GameObject playerGO;
     [SerializeField] OCSpotSwitch spot;
     [SerializeField] Transform spotPos;
 
     [Header("Mech nr.1")]
-    public bool mechNr1Selected;
-    [SerializeField] GameObject Mech_1;
+    private bool bodySelected;
+    [SerializeField] Rigidbody2D body;
+
+    [Header("Mech nr.1")]
+    private bool mechNr1Selected;
+    [SerializeField] Rigidbody2D mech_1;
 
     [Header("Mech nr.2")]
-    public bool mechNr2Selected;
-    [SerializeField] GameObject Mech_2;
+    private bool mechNr2Selected;
+    [SerializeField] Rigidbody2D mech_2;
 
     [Header("Mech nr.3")]
-    public bool mechNr3Selected;
-    [SerializeField] GameObject Mech_3;
+    private bool mechNr3Selected;
+    [SerializeField] Rigidbody2D mech_3;
 
     [Header("CanvasOptions")]
-    public bool canvasActive;
-    [SerializeField] Canvas charactersMenu;
+    private PauseScript pauseScript;
+    [SerializeField] GameObject charactersMenu;
     
-    private Vector2 playerToBlockVector;
     private void Start()
     {
-
+        disactiveCollider.SetActive(false);
+        playerGO = GameObject.FindGameObjectWithTag("Player");
+        playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+        pauseScript = GameObject.Find("Menagers").GetComponent<PauseScript>();
     }
     void Update()
     {
+        MechSelection();
         if (spot.isSwitched == true && spot.isTouching == true)
         {
             transform.position = spotPos.transform.position;
         }
-        CharactersMenu();
-        MechSelection();
-    }
-    void MechSelection()
-    {
 
+        if (playerIsClose && Input.GetKeyDown(KeyCode.E))
+        {
+            CharactersMenu();
+        }
+        if (playerControler.playerDied == true)
+            CharactersMenu();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            disactiveCollider.SetActive(true);
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            disactiveCollider.SetActive(false);
+        }
     }
-    public void MainCharacterReturn()
+    public void MechSelection()
     {
-        playerGO.SetActive(true);
-        charactersMenu.gameObject.SetActive(false);
-        canvasActive = false;
+        if(bodySelected == true)
+        {
+            Rigidbody2D bulletShot = Instantiate(body, this.transform.position, this.transform.rotation);
+            bodySelected = false;
+            playerGO = GameObject.FindGameObjectWithTag("Player");
+            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+        }
+        if (mechNr1Selected == true)
+        {
+            Rigidbody2D bulletShot = Instantiate(mech_1, transform.position, transform.rotation);
+            mechNr1Selected = false;
+            playerGO = GameObject.FindGameObjectWithTag("Player");
+            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+        }
+        if (mechNr2Selected == true)
+        {
+            Rigidbody2D bulletShot = Instantiate(mech_2, this.transform.position, this.transform.rotation);
+            mechNr2Selected = false;
+            playerGO = GameObject.FindGameObjectWithTag("Player");
+            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+        }
+        if (mechNr3Selected == true)
+        {
+            Rigidbody2D bulletShot = Instantiate(mech_3, this.transform.position, this.transform.rotation);
+            mechNr3Selected = false;
+            playerGO = GameObject.FindGameObjectWithTag("Player");
+            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+
+        }
+    }
+    public void Body_1Button()
+    {
+        bodySelected = true;
+        GameReturn();
+    }
+    public void Mech_1Button()
+    {
+        mechNr1Selected = true;
+        GameReturn();
+    }
+    public void Mech_2Button()
+    {
+        mechNr2Selected = true;
+        GameReturn();
+    }
+    public void Mech_3Button()
+    {
+        mechNr3Selected = true;
+        GameReturn();
+    }
+    public void GameReturn()
+    {
+        charactersMenu.SetActive(false);
+        pauseScript.characterMenuOn = false;
+        Time.timeScale = 1;
     }
     public void CharactersMenu()
     {
-        if(playerIsClose && Input.GetKeyDown(KeyCode.E))
-        {
-            canvasActive = true;
-            playerGO.SetActive(false);
-            charactersMenu.gameObject.SetActive(true);
-        }
+
+        pauseScript.characterMenuOn = true;
+        Destroy(playerGO);
+        charactersMenu.SetActive(true);
+        Time.timeScale = 0.15f;
     }
   
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,6 +138,7 @@ public class OperationCenter : MonoBehaviour
             playerIsClose = true;
 ;           e_button.SetActive(true);
         }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

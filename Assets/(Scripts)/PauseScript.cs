@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
-    public bool gameIsPaused;
+    [HideInInspector] public bool gameIsPaused;
+    [HideInInspector] public bool characterMenuOn;
      void Start()
     {
         gameIsPaused = false;

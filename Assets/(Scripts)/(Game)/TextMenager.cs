@@ -51,24 +51,23 @@ public class TextMenager : MonoBehaviour
     }
     void Tutorial_4()
     {
-        text.text = "Dlatego dam ci tą pradawną księge w pradawnym języku. Tam powinieneś znależć wszstko co potrzebne"+
-                    " Poruszasz się na \n W S A D\n\nCeluj myszą i strzelaj jej lewym przyciskiem\n\n Na początek, żeby się stąd wydostać musisz zestrzelić fioletowe blokady kreatywności\n" +
-                    "To te fioletowe klocki. Prznajmnie tak wyglądają dla Optymistów";
+        text.text = "Dlatego dam ci tą pradawną księge w pradawnym języku. Tam powinieneś znależć wszstko co potrzebne.\n"+
+                    " Poruszasz się na \n\n W S A D\nCeluj myszą i strzelaj jej lewym przyciskiem\n" +
+                    "Wszelkich interakcji dokonuje sie za pomocą E\n Ten duży kolcek przesówa się za pomocą SPACE";
         if (Input.GetKeyDown(KeyCode.E))
         {
             St = States.T5;
-            tutorialCanvas.SetActive(false);
             tutorialNumer += 1;
             Time.timeScale = 1;
         }
     }
     void Tutorial_5()
     {
-        text.text = "Wersja demonstracjyjna.\n Zakończona czekaj na więcej";
+        text.text = "Na początek, żeby się stąd wydostać musisz zestrzelić fioletowe blokady kreatywności\n" +
+                    "To te fioletowe klocki. Prznajmnie tak wyglądają dla Optymistów. Z resztą musisz poradzić sobie sam";
         if (Input.GetKeyDown(KeyCode.E))
         {
-            
-            
+            tutorialCanvas.SetActive(false);
             tutorialNumer += 1;
             Time.timeScale = 1;
         }

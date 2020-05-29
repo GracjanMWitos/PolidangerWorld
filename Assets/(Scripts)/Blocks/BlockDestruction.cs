@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class BlockDestruction : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    ScoreMenager scores;
+    private void Start()
     {
-        if (collision.collider.CompareTag("Bullet"))
+        scores = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
+    }
+    public void OnCollisionEnter2D(Collision2D block)
+    {
+        if (block.collider.CompareTag("Bullet"))
         {
             Destroy(gameObject);
+            scores.blockDestoried += 1;
         }
     }
 }
