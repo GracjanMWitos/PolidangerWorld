@@ -17,8 +17,8 @@ public class Shooting : MonoBehaviour
     public bool confirm1;
     [Header("TwoBarrels")]
     public bool confirm2;
-    [SerializeField] bool oneOfTwoBarrel;
-    [SerializeField] bool twoOfTwoBarrel;
+    [SerializeField] private bool oneOfTwoBarrel;
+    [SerializeField] private bool twoOfTwoBarrel;
     [Header("ThreeBarrels")]
     public bool confirm3;
     [SerializeField] bool oneOfThreeBarrel;
@@ -37,7 +37,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
 
-        if (confirm1)
+        if (confirm1 )
         {
             Is1();
         }
@@ -62,7 +62,7 @@ public class Shooting : MonoBehaviour
         {
             anim.SetBool("isShoting", true);
             anim.SetBool("isIdle", false);
-            timer += timeToNextShot;
+            timer = timeToNextShot;
             Rigidbody2D bulletClone = Instantiate(bullet, gun.position, gun.rotation);
         }
     }
@@ -81,7 +81,7 @@ public class Shooting : MonoBehaviour
                 anim.SetBool("isShoting1", false);
                 anim.SetBool("isShoting2", true);
                 anim.SetBool("isIdle", false);
-                timer += timeToNextShot;
+                timer = timeToNextShot;
                 Rigidbody2D bulletClone = Instantiate(bullet, gun.position, gun.rotation);
             }
         if(oneOfTwoBarrel)
@@ -97,7 +97,7 @@ public class Shooting : MonoBehaviour
                 anim.SetBool("isShoting2", false);
                 anim.SetBool("isShoting1", true);
                 anim.SetBool("isIdle", false);
-                timer += timeToNextShot;
+                timer = timeToNextShot;
                 Rigidbody2D bulletClone = Instantiate(bullet, gun.position, gun.rotation);
             }
     }
@@ -122,7 +122,7 @@ public class Shooting : MonoBehaviour
             anim.SetBool("isShoting2", false);
             anim.SetBool("isShoting1", true);
             anim.SetBool("isIdle", false);
-            timer += 8;
+            timer = 8;
             Rigidbody2D bulletClone = Instantiate(bullet, gun.position, gun.rotation);
         }
     }

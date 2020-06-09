@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4989186166036564013}
   - component: {fileID: 4989186166036564014}
   - component: {fileID: 4989186166036564012}
-  - component: {fileID: 4989186166036564003}
   m_Layer: 0
   m_Name: turret_01_mk1
   m_TagString: Untagged
@@ -96,7 +95,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb97bb7d1174ea4a93260d6df4aef18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPos: {fileID: 0}
+  gun: {fileID: 4989186166556982048}
+  bullet: {fileID: 2495525093920665322, guid: 00ec3070ffec22142941d9ca8ad4cdc0, type: 3}
+  gunShot: {fileID: 0}
+  Sound: {fileID: 0}
+  timer: 0
+  timerAtStart: 3
+  timeToNextShot: 1.6
+  anim: {fileID: 0}
+  confirm1: 1
+  confirm2: 0
+  oneOfTwoBarrel: 0
+  twoOfTwoBarrel: 0
+  confirm3: 0
+  oneOfThreeBarrel: 0
+  twoOfThreeBarrel: 0
+  threeOfThreeBarrel: 0
 --- !u!95 &4989186166036564012
 Animator:
   serializedVersion: 3
@@ -116,34 +130,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4989186166036564003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4989186166036564001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbd1e309aefb264dbb637b12ceee5b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gun: {fileID: 4989186166556982048}
-  bullet: {fileID: 2495525093920665322, guid: 00ec3070ffec22142941d9ca8ad4cdc0, type: 3}
-  gunShot: {fileID: 0}
-  Sound: {fileID: 0}
-  timer: 0
-  timerAtStart: 3
-  timeToNextShot: 3
-  anim: {fileID: 4989186166036564012}
-  confirm1: 1
-  confirm2: 0
-  oneOfTwoBarrel: 0
-  twoOfTwoBarrel: 0
-  confirm3: 0
-  oneOfThreeBarrel: 0
-  twoOfThreeBarrel: 0
-  threeOfThreeBarrel: 0
 --- !u!1 &4989186166556982055
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d81f381461837224a9c0058e8b6b06f8, type: 3}
   m_Color: {r: 0.8584906, g: 0.028346404, b: 0.028346404, a: 1}
   m_FlipX: 0

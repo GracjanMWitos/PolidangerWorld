@@ -9,32 +9,37 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] private OperationCenter operationCenter;
 
-    private Rigidbody2D rb;
+
     Vector2 movement;
     [Header("Interaction")]
     public bool playerDied;
     [Header("Abilitis")]
+    [SerializeField] public float dashingTime;
+    [SerializeField] public float dashLength;
+    [SerializeField] public float timeToShot;
+    [Header("Components")]
     public Transform gun;
     public Rigidbody2D bullet;
     public AudioClip gunShot;
-    public AudioSource Sound;
+    private AudioSource audioSource;
+    private Rigidbody2D rb;
     [SerializeField] GameObject canvas;
+    [SerializeField] private float timer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         operationCenter = GameObject.Find("OperationCenter").GetComponent<OperationCenter>();
+        audioSource = GetComponent<AudioSource>();
+        timer = timeToShot;
     }
     private void Update()
     {
+        SlowMotion();
+        Dash();
+        Shooting();
         canvas = GameObject.Find("CharacterMenu");
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Sound.PlayOneShot(gunShot);
-            Rigidbody2D bulletShot = Instantiate(bullet, gun.position, gun.rotation);
-        }
-
-            
+      
         Quaternion rotation = Quaternion.LookRotation(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
         transform.rotation = rotation;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
@@ -45,6 +50,46 @@ public class PlayerControler : MonoBehaviour
 
         rb.velocity = new Vector2(movement.x, movement.y);
 
+    }
+    void Shooting()
+    {
+        if (timer > 0)
+            timer -= Time.deltaTime;
+        if (Input.GetKey(KeyCode.Mouse0) && timer <= 0)
+        {
+            //audioSource.PlayOneShot(gunShot);
+            Rigidbody2D bulletShot = Instantiate(bullet, gun.position, gun.rotation);
+            timer = timeToShot;     
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0) && timer <= 0)
+            timer = timeToShot;
+    }
+    void SlowMotion()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Time.timeScale = 0.20f;
+            moveSpeed *= 4;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1f;
+            moveSpeed /= 4;
+        }
+        
+    }
+    void Dash()
+    {
+        Vector2 dashMove = new Vector2(transform.position.x, transform.position.y + dashLength);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.position = Vector2.Lerp(transform.position, dashMove, dashingTime / Time.deltaTime);
+            Time.timeScale = 0.7f;
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Time.timeScale = 1f;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

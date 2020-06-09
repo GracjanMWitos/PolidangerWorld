@@ -6,44 +6,46 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Nightmare_AI : MonoBehaviour
 {
 private Transform playerPos;
-    [SerializeField] float speed;
-    [SerializeField] float timeToMaxSpeed;
-    Rigidbody2D rb;
+    [SerializeField] private float speed;
     private ScoreMenager scoreMenager;
     private Vector3 target;
     private Transform operationCenter;
+    [SerializeField] private float distanceToChangeTarget;
+    [SerializeField] float timer;
+    [SerializeField] PauseScript pause;
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
         scoreMenager = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
         operationCenter = GameObject.Find("OperationCenter").GetComponent<Transform>();
-        playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        pause = GameObject.Find("Menagers").GetComponent<PauseScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       TargetChange();
+
         Vector3 dir = target - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        
-
-
-        //rb.velocity = Vector2.MoveTowards(rb.velocity, target.transform.position,timeToMaxSpeed * Time.deltaTime);
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+    }
+    private void FixedUpdate()
+    {
+        TargetChange();
     }
     void TargetChange()
     {
-        if(Vector2.Distance(transform.position,playerPos.position) > Vector2.Distance(transform.position, operationCenter.transform.position))
-            {
+        if (pause.characterMenuOn || playerPos == null)
             target = operationCenter.transform.position;
-            }
-        else if (Vector2.Distance(transform.position, playerPos.position) < Vector2.Distance(transform.position, operationCenter.transform.position))
+        if (pause.characterMenuOn == false || playerPos != null)
         {
-            target = playerPos.position;
+            playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            if (Vector2.Distance(transform.position, playerPos.position) * distanceToChangeTarget > Vector2.Distance(transform.position, operationCenter.transform.position))
+                target = operationCenter.transform.position;
+            else if (Vector2.Distance(transform.position, playerPos.position) * distanceToChangeTarget < Vector2.Distance(transform.position, operationCenter.transform.position))
+                target = playerPos.position;
         }
-
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

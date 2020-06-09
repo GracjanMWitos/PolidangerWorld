@@ -5,49 +5,39 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("WaveStatistics")]
-    [SerializeField] GameObject NotStarted;
-    [SerializeField] GameObject Started;
-    [SerializeField] GameObject Completed;
+    [SerializeField] GameObject notStarted;
+    [SerializeField] GameObject started;
+    [SerializeField] GameObject completed;
     private bool waveStarted;
-    public bool waveComplete;
+    private bool waveComplete;
     [SerializeField] ushort enemyNumberToSpawn;
     [Header("Configuration")]
-    [SerializeField] string gate_name;
-    private GameObject gate;
-    [SerializeField] TrigerAndCollisionDetection trigger;
-    [SerializeField] GameObject enemy;
+    [SerializeField] private GameObject objectsToActive;
+    [SerializeField] private GameObject gate;
+    [SerializeField] private GameObject enemy;
     [SerializeField] Transform[] enemySpots;
-    public ScoreMenager scoreMenager;
+    private ScoreMenager scoreMenager;
     [Header("Timer")]
     [SerializeField] private float timer;
-    [SerializeField] float timeBtwSpawns;
+    [SerializeField] private float timeBtwSpawns;
     
     void Start()
     {
-        timer = timeBtwSpawns;
-        scoreMenager.enemyLeft = enemyNumberToSpawn;
-        gate = GameObject.Find(gate_name);
-    }
+        scoreMenager = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
 
-    // Update is called once per frame
+        timer = timeBtwSpawns;
+    }
     void Update()
     {
         EnemySpawning();
-        StateChange();
-    }
-    void StateChange()
-    {
-        if (waveComplete == true)
-        {
-            Completed.SetActive(true);
-            gate.SetActive(true);
-        }
+        TowerActive();
     }
     void EnemySpawning()
     {
         int randomPos = Random.Range(0, enemySpots.Length);
         if (waveStarted)
         {
+            scoreMenager.enemyLeft = enemyNumberToSpawn;
             if (enemyNumberToSpawn > 0)
                 if (timer <= 0)
                 {
@@ -65,12 +55,23 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+    void TowerActive()
+    {
+        if (waveStarted)
+        {
+                objectsToActive.SetActive(true);
+        }
+        if (waveComplete)
+        {
+                objectsToActive.SetActive(false);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "OperationCenter")
         {
-            NotStarted.SetActive(false);
-            Started.SetActive(true);
+            Destroy(notStarted);
+            started.SetActive(true);
             waveStarted = true;
         }
     }

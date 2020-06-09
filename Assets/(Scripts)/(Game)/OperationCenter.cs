@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OperationCenter : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class OperationCenter : MonoBehaviour
     private PlayerControler playerControler;
     [SerializeField] public bool playerIsClose;
     [Header("Spots")]
-    [SerializeField]private GameObject playerGO;
+    [SerializeField] private GameObject playerGO;
     [SerializeField] OCSpotSwitch spot;
     [SerializeField] Transform spotPos;
 
@@ -33,7 +34,7 @@ public class OperationCenter : MonoBehaviour
     [Header("CanvasOptions")]
     private PauseScript pauseScript;
     [SerializeField] GameObject charactersMenu;
-    
+
     private void Start()
     {
         disactiveCollider.SetActive(false);
@@ -43,30 +44,22 @@ public class OperationCenter : MonoBehaviour
     }
     void Update()
     {
+        ActiveCollider();
         MechSelection();
         if (spot.isSwitched == true && spot.isTouching == true)
         {
             transform.position = spotPos.transform.position;
         }
 
-        if (playerIsClose && Input.GetKeyDown(KeyCode.E))
+        if ((playerIsClose && Input.GetKeyDown(KeyCode.E)) || playerControler.playerDied == true)
         {
             CharactersMenu();
         }
-        if (playerControler.playerDied == true)
-            CharactersMenu();
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            disactiveCollider.SetActive(true);
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            disactiveCollider.SetActive(false);
-        }
+
     }
     public void MechSelection()
     {
-        if(bodySelected == true)
+        if (bodySelected == true)
         {
             Rigidbody2D bulletShot = Instantiate(body, this.transform.position, this.transform.rotation);
             bodySelected = false;
@@ -94,6 +87,17 @@ public class OperationCenter : MonoBehaviour
             playerGO = GameObject.FindGameObjectWithTag("Player");
             playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
 
+        }
+    }
+    public void ActiveCollider()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            disactiveCollider.SetActive(true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            disactiveCollider.SetActive(false);
         }
     }
     public void Body_1Button()
@@ -138,7 +142,10 @@ public class OperationCenter : MonoBehaviour
             playerIsClose = true;
 ;           e_button.SetActive(true);
         }
-        
+        if(collision.CompareTag("Enemy"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
