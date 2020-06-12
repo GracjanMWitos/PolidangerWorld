@@ -12,7 +12,7 @@ TagManager:
   - Projectile
   - OperationCenter
   - Wall
-  - BrokenBlock
+  - RedBlocks
   layers:
   - Default
   - TransparentFX

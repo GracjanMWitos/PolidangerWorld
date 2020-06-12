@@ -25,6 +25,10 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] GameObject canvas;
     [SerializeField] private float timer;
+    [SerializeField] private float timeToDie;
+    [SerializeField] private float timeInRed;
+    private bool playerIsInRed;
+
 
     void Start()
     {
@@ -36,7 +40,7 @@ public class PlayerControler : MonoBehaviour
     private void Update()
     {
         SlowMotion();
-        Dash();
+        Teleportation();
         Shooting();
         canvas = GameObject.Find("CharacterMenu");
       
@@ -49,6 +53,16 @@ public class PlayerControler : MonoBehaviour
         movement.y = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
         rb.velocity = new Vector2(movement.x, movement.y);
+
+        if (playerIsInRed)
+            timeInRed += Time.deltaTime;
+        if (timeInRed >= timeToDie)
+        {
+            Destroy(gameObject);
+            playerDied = true;
+            operationCenter.CharactersMenu();
+        }
+
 
     }
     void Shooting()
@@ -78,17 +92,17 @@ public class PlayerControler : MonoBehaviour
         }
         
     }
-    void Dash()
+    void Teleportation()
     {
         Vector2 dashMove = new Vector2(transform.position.x, transform.position.y + dashLength);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space) && timer <= 0)
         {
-            transform.position = Vector2.Lerp(transform.position, dashMove, dashingTime / Time.deltaTime);
-            Time.timeScale = 0.7f;
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            timer = timeToShot;
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            Time.timeScale = 1f;
+  
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -104,11 +118,22 @@ public class PlayerControler : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             
-            transform.position = new Vector2(operationCenter.transform.position.x, operationCenter.transform.position.y);
+            //transform.position = new Vector2(operationCenter.transform.position.x, operationCenter.transform.position.y);
             Destroy(gameObject);
             playerDied = true;
             operationCenter.CharactersMenu();
         }
+        if (collision.CompareTag("RedBlocks"))
+        {
+            playerIsInRed = true;
+        }
     }
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("RedBlocks"))
+        {
+            playerIsInRed = false;
+            timeInRed = 0;
+        }
+    }
 }
