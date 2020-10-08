@@ -9,10 +9,13 @@ TagManager:
   - PowerBlock
   - PessimismBlock
   - Enemy
-  - Projectile
   - OperationCenter
   - Wall
   - RedBlocks
+  - EnemyBullet
+  - OCPowerSlot
+  - BlueSpace
+  - Floor
   layers:
   - Default
   - TransparentFX

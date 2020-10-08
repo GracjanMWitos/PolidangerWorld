@@ -5,29 +5,31 @@ using UnityEngine.UI;
 
 public class PlayerControler : MonoBehaviour
 {
+    
     [Header("Movement")]
-    [SerializeField] float moveSpeed;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private OperationCenter operationCenter;
-
-
     Vector2 movement;
     [Header("Interaction")]
-    public bool playerDied;
-    [Header("Abilitis")]
-    [SerializeField] public float dashingTime;
-    [SerializeField] public float dashLength;
+    [SerializeField] private float timeToDieOnRedBlock;
+    [SerializeField] private float timeSpendedOnRedBlock;
+    [SerializeField] private bool noRespawnPleace;
+    [SerializeField] public bool playerisDead;
+    [SerializeField] private bool playerisOnRedBlock;
+    [Header("    Teleportation")][Header("Abilitis")]
+    public float cursorToPlayer;
+    [Header("    Shooting")]
     [SerializeField] public float timeToShot;
-    [Header("Components")]
     public Transform gun;
     public Rigidbody2D bullet;
     public AudioClip gunShot;
+    [Header("Others")]
     private AudioSource audioSource;
     private Rigidbody2D rb;
     [SerializeField] GameObject canvas;
     [SerializeField] private float timer;
-    [SerializeField] private float timeToDie;
-    [SerializeField] private float timeInRed;
-    private bool playerIsInRed;
+    public Vector2 mousePosition;
+
 
 
     void Start()
@@ -36,6 +38,7 @@ public class PlayerControler : MonoBehaviour
         operationCenter = GameObject.Find("OperationCenter").GetComponent<OperationCenter>();
         audioSource = GetComponent<AudioSource>();
         timer = timeToShot;
+
     }
     private void Update()
     {
@@ -48,22 +51,19 @@ public class PlayerControler : MonoBehaviour
         transform.rotation = rotation;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
 
-
         movement.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         movement.y = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
         rb.velocity = new Vector2(movement.x, movement.y);
 
-        if (playerIsInRed)
-            timeInRed += Time.deltaTime;
-        if (timeInRed >= timeToDie)
+        if (playerisOnRedBlock)
+            timeSpendedOnRedBlock += Time.deltaTime;
+        if (timeSpendedOnRedBlock >= timeToDieOnRedBlock)
         {
             Destroy(gameObject);
-            playerDied = true;
-            operationCenter.CharactersMenu();
+            playerisDead = true;
+            operationCenter.StartCharactersMenu();
         }
-
-
     }
     void Shooting()
     {
@@ -94,46 +94,48 @@ public class PlayerControler : MonoBehaviour
     }
     void Teleportation()
     {
-        Vector2 dashMove = new Vector2(transform.position.x, transform.position.y + dashLength);
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space) && timer <= 0)
+        Vector3 teleportationPointPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z + 10));
+        if (Input.GetKeyUp(KeyCode.Space) && timer <= 0)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = teleportationPointPosition;
             timer = timeToShot;
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-  
+
         }
+    }
+    void InteractionWithPortals()
+    {
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            transform.position = new Vector2(operationCenter.transform.position.x, operationCenter.transform.position.y);
+            transform.position = new Vector2(operationCenter.transform.position.x,+
+                operationCenter.transform.position.y);
         }
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
-        {
-            
-            //transform.position = new Vector2(operationCenter.transform.position.x, operationCenter.transform.position.y);
+        {        
             Destroy(gameObject);
-            playerDied = true;
-            operationCenter.CharactersMenu();
+            playerisDead = true;
+            operationCenter.StartCharactersMenu();
         }
         if (collision.CompareTag("RedBlocks"))
         {
-            playerIsInRed = true;
+            playerisOnRedBlock = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("RedBlocks"))
         {
-            playerIsInRed = false;
-            timeInRed = 0;
+            playerisOnRedBlock = false;
+            timeSpendedOnRedBlock = 0;
         }
     }
 }

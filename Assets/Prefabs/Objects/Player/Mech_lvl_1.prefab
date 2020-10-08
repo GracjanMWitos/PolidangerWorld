@@ -133,19 +133,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13dcfcdc69c170645b60f91833b59bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 180
+  mousePosition: {x: 0, y: 0}
+  moveSpeed: 140
   operationCenter: {fileID: 0}
-  playerDied: 0
-  dashingTime: 0
-  dashLength: 0
+  timeToDieOnRedBlock: 0.7
+  timeSpendedOnRedBlock: 0
+  noRespawnPleace: 0
+  playerisDead: 0
+  playerisOnRedBlock: 0
+  cursorToPlayer: 0
   timeToShot: 0.2
   gun: {fileID: 7185034802558383691}
   bullet: {fileID: 697272606651380770, guid: f2b2b42c23335de43a138f37fdf61f64, type: 3}
   gunShot: {fileID: 0}
   canvas: {fileID: 0}
   timer: 0
-  timeToDie: 1.4
-  timeInRed: 0
 --- !u!1 &7185034802084264726
 GameObject:
   m_ObjectHideFlags: 0

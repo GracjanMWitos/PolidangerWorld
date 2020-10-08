@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3918454749941141639}
   - component: {fileID: 3918454749941141636}
   m_Layer: 0
-  m_Name: OCSpot1
+  m_Name: OCSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 3918454751281981002}
   - component: {fileID: 3918454751281981003}
   m_Layer: 0
-  m_Name: OCSpotSwitch1
+  m_Name: OCSpotSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

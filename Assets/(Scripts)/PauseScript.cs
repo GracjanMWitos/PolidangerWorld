@@ -23,4 +23,11 @@ public class PauseScript : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+    void CursorVisiblety() 
+    {
+        if (gameIsPaused)
+            Cursor.visible = true;
+        else
+            Cursor.visible = false;
+    }
 }
