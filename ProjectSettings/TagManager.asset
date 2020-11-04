@@ -16,6 +16,7 @@ TagManager:
   - OCPowerSlot
   - BlueSpace
   - Floor
+  - BrokenBlock
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Walkable
+  - Unwalkable
   - 
   - 
   - 
@@ -55,4 +56,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1192441149
+    locked: 0
+  - name: Playground
+    uniqueID: 1725399909
     locked: 0

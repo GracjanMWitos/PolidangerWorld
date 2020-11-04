@@ -95,10 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2c8ed6a5770c64394ebebb657039f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 2
   damage: 0
   playerIsShooter: 0
   enemyIsShooter: 1
+  scattering: 0
 --- !u!58 &2495525093920665326
 CircleCollider2D:
   m_ObjectHideFlags: 0
