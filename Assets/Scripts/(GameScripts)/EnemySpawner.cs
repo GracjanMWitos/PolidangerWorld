@@ -1,78 +1,97 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using Random = UnityEngine.Random;
+[System.Serializable]
+public struct SpawnsData
+{
+    public string spawn_name;
+    public bool isUsing;
+    public Transform spawnTransform;
+    public GameObject towerGO;
+}
 
 public class EnemySpawner : MonoBehaviour
 {
     [Header("WaveStatistics")]
-    [SerializeField] GameObject notStarted;
-    [SerializeField] GameObject started;
-    [SerializeField] GameObject completed;
-    private bool waveStarted;
+    Animator animator;
+    private bool waveStarted = true;
     private bool waveComplete;
-    [SerializeField] ushort enemyNumberToSpawn;
+    [SerializeField] public List<SpawnsData> spawnsList = new List<SpawnsData>();
+    [SerializeField] ushort enemiesToSpawn;
+    [SerializeField] ushort towersToSpawn;
     [Header("Configuration")]
     [SerializeField] private GameObject objectsToActive;
     [SerializeField] private GameObject gate;
     [SerializeField] private GameObject enemy;
-    [SerializeField] Transform[] enemySpots;
+    [SerializeField] private Transform[] enemy_Spawns;
     private ScoreMenager scoreMenager;
-    [Header("Timer")]
+    [Header("Time")]
     [SerializeField] private float timer;
     [SerializeField] private float timeBtwSpawns;
-    
+
     void Start()
     {
-        scoreMenager = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
-
+        scoreMenager = GameObject.Find("Managers").GetComponent<ScoreMenager>();
+        animator = GetComponent<Animator>();
         timer = timeBtwSpawns;
+        SpawnsAdding();
+        foreach (SpawnsData spawn in spawnsList)
+        {
+            if (spawn.isUsing == true)
+                spawn.towerGO.SetActive(true);
+        }
     }
     void Update()
     {
-        EnemySpawning();
-        TowerActive();
+        InvokeRepeating("EnemySpawning", timeBtwSpawns, timeBtwSpawns);
     }
     void EnemySpawning()
     {
-        int randomPos = Random.Range(0, enemySpots.Length);
-        if (waveStarted)
-        {
-            scoreMenager.enemyLeft = enemyNumberToSpawn;
-            if (enemyNumberToSpawn > 0)
-                if (timer <= 0)
-                {
-                    Instantiate(enemy, new Vector2(enemySpots[randomPos].position.x + 82, enemySpots[randomPos].position.y + 9), Quaternion.identity);
-                    timer = timeBtwSpawns;
-                    enemyNumberToSpawn -= 1;
-                }
-            if (timer > 0)
-                timer -= Time.deltaTime;
+        scoreMenager.enemyLeft = enemiesToSpawn;
 
-            if (scoreMenager.enemyLeft == 0)
+        if (enemiesToSpawn > 0)
+        {
+            int randomPos = Random.Range(0, enemy_Spawns.Length);
+            Instantiate(enemy, -new Vector2(transform.position.x - enemy_Spawns[randomPos].position.x, transform.position.y - enemy_Spawns[randomPos].position.y), Quaternion.identity);
+            timer = timeBtwSpawns;
+            enemiesToSpawn -= 1;
+        }
+        //else spawnsList.Clear();
+    }
+    void SpawnsAdding()
+    {
+        int j = Random.Range(0, enemy_Spawns.Length);
+        int h = Random.Range(0, enemy_Spawns.Length);
+        for (int i = 0; i < enemy_Spawns.Length; i++)
+        {
+            
+            SpawnsData spawnData = new SpawnsData();
             {
-                waveComplete = true;
-                gate.SetActive(false);
+                spawnData.spawn_name = "spawn_" + i;
+                spawnData.spawnTransform = enemy_Spawns[i];
+                foreach (Transform child in enemy_Spawns[i].transform)
+                {
+                    if (child.name == "Tower")
+                    {
+                        
+                        spawnData.towerGO = child.gameObject;
+                        if (i == j || i==h)
+                        {
+                            spawnData.isUsing = true;
+                        }
+                        else
+                        {
+                            spawnData.isUsing = false;
+                        }
+                    }
+                }
+                spawnsList.Add(spawnData);
             }
         }
     }
-    void TowerActive()
-    {
-        if (waveStarted)
-        {
-                objectsToActive.SetActive(true);
-        }
-        if (waveComplete)
-        {
-                objectsToActive.SetActive(false);
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.name == "OperationCenter")
-        {
-            Destroy(notStarted);
-            started.SetActive(true);
-            waveStarted = true;
-        }
-    }
 }
+
+

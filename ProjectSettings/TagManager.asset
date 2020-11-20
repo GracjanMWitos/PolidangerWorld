@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - Weapon
   - PowerBlock
   - PessimismBlock
   - Enemy
@@ -16,7 +15,7 @@ TagManager:
   - OCPowerSlot
   - BlueSpace
   - Floor
-  - BrokenBlock
+  - Interactivable
   layers:
   - Default
   - TransparentFX

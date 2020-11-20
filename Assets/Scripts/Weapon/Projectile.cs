@@ -9,23 +9,20 @@ public class Projectile : MonoBehaviour
     [SerializeField] bool playerIsShooter;
     [SerializeField] bool enemyIsShooter;
     public float scattering;
+    float playerRotation;
     void Start()
     {
-
+        playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation.z;
+        scattering = Random.Range(-scattering,scattering);
     }
     void Update()
     {
-        float a;
-        transform.Translate(a = Random.Range(-scattering, scattering),1,0);
+        transform.Translate(scattering, 1 * speed * Time.deltaTime, 0);
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(enemyIsShooter == true)
-        Destroy(gameObject);
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(playerIsShooter == true)
+        if (collision.CompareTag("Wall") || collision.CompareTag("Enemy"))
         Destroy(gameObject);
     }
 }

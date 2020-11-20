@@ -8,11 +8,11 @@ public class OperationCenter : MonoBehaviour
     [Header("Other")]
     [SerializeField] private GameObject e_button;
     [SerializeField] private GameObject disactiveCollider;
-    private PlayerControler playerControler;
+    private PlayerController playerController;
     [SerializeField] public bool playerIsClose;
     [Header("Interaction")]
     [SerializeField] private GameObject playerGO;
-    [SerializeField] public bool O_CIsConectedToSlot;
+    [SerializeField] public bool _OCIsConectedToSlot;
 
     [Header("Mech nr.1")]
     private bool bodySelected;
@@ -38,16 +38,16 @@ public class OperationCenter : MonoBehaviour
     {
         disactiveCollider.SetActive(false);
         playerGO = GameObject.FindGameObjectWithTag("Player");
-        playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     void Update()
     {
         ActiveCollider();
         MechSelection();
 
-        if ((playerIsClose && Input.GetKeyDown(KeyCode.E)) || playerControler.playerisDead == true)
+        if ((playerIsClose && Input.GetKeyDown(KeyCode.E)) || playerController.playerisDead == true)
         {
-            StartCharactersMenu();
+            /*StartCharactersMenu();*/
         }
 
     }
@@ -58,28 +58,28 @@ public class OperationCenter : MonoBehaviour
             Rigidbody2D bulletShot = Instantiate(body, this.transform.position, this.transform.rotation);
             bodySelected = false;
             playerGO = GameObject.FindGameObjectWithTag("Player");
-            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
         if (mechNr1Selected == true)
         {
             Rigidbody2D bulletShot = Instantiate(mech_1, transform.position, transform.rotation);
             mechNr1Selected = false;
             playerGO = GameObject.FindGameObjectWithTag("Player");
-            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
         if (mechNr2Selected == true)
         {
             Rigidbody2D bulletShot = Instantiate(mech_2, this.transform.position, this.transform.rotation);
             mechNr2Selected = false;
             playerGO = GameObject.FindGameObjectWithTag("Player");
-            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
         if (mechNr3Selected == true)
         {
             Rigidbody2D bulletShot = Instantiate(mech_3, this.transform.position, this.transform.rotation);
             mechNr3Selected = false;
             playerGO = GameObject.FindGameObjectWithTag("Player");
-            playerControler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControler>();
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         }
     }
@@ -120,13 +120,13 @@ public class OperationCenter : MonoBehaviour
         charactersMenuStarted = false;
         Time.timeScale = 1;
     }
-    public void StartCharactersMenu()
+    /*public void StartCharactersMenu()
     {
         charactersMenuStarted = true;
         Destroy(playerGO);
         charactersMenu.SetActive(true);
         Time.timeScale = 0f;
-    }
+    }*/
   
     private void OnTriggerEnter2D(Collider2D collision)
     {

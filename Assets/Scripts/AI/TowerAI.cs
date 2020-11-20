@@ -32,7 +32,7 @@ public class TowerAI : MonoBehaviour
     private void Start()
     {
         operationCenter = GameObject.Find("OperationCenter").GetComponent<Transform>();
-        pause = GameObject.Find("Menagers").GetComponent<PauseScript>();
+        pause = GameObject.Find("Managers").GetComponent<PauseScript>();
         anim = GetComponent<Animator>();
         anim.SetBool("isShoting1", false);
         anim.SetBool("isShoting2", false);
@@ -45,15 +45,15 @@ public class TowerAI : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        if (confirm1 && Vector2.Distance(transform.position, target) > 10)
+        if (confirm1 && Vector2.Distance(transform.position, target) < 10)
         {
             Is1();
         }
-        if (confirm2 && Vector2.Distance(transform.position, target) > 10)
+        if (confirm2 && Vector2.Distance(transform.position, target) < 10)
         {
             Is2();
         }
-        if (confirm3 && Vector2.Distance(transform.position, target) > 10)
+        if (confirm3 && Vector2.Distance(transform.position, target) < 10)
         {
             Is3();
         }

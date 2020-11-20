@@ -137,9 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e789b6befc1d9f42a2d999e26c23109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetOffset: {x: 0, y: 0, z: 10}
+  TargetOffset: {x: 0, y: 0, z: -10}
   cameraMovementSpeed: 5.5
-  target: {x: 0, y: 0}
+  target: {fileID: 0}
 --- !u!50 &7263579180327407457
 Rigidbody2D:
   serializedVersion: 4

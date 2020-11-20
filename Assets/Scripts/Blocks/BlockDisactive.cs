@@ -14,7 +14,7 @@ public class BlockDisactive : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.Play();
-        scores = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
+        scores = GameObject.Find("Managers").GetComponent<ScoreMenager>();
     }
     private void Update()
     {

@@ -9,7 +9,7 @@ public class BlockCounter : MonoBehaviour
     ScoreMenager scores;
     private void Start()
     {
-        scores = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
+        scores = GameObject.Find("Managers").GetComponent<ScoreMenager>();
     }
     void Update()
     {

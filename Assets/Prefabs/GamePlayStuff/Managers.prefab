@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8303730386654400573}
+  - component: {fileID: 4375571659810497686}
   - component: {fileID: 8303730386654400574}
-  - component: {fileID: 8303730386654400572}
   - component: {fileID: 8303730386654400547}
-  - component: {fileID: 8303730386654400546}
+  - component: {fileID: 7005979003533226293}
   - component: {fileID: 5951074156774075801}
+  - component: {fileID: 8303730386654400546}
   m_Layer: 0
-  m_Name: Menagers
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,6 +36,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4375571659810497686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303730386654400575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74e54e055439e44583939703803ada3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthPointsCapacity: 40
+  maxPowerPointsCapacity: 20
+  maxEnginaryPointsCapacity: 2
+  xp: 0
 --- !u!114 &8303730386654400574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,20 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c756d261cd6970a4f8605dee26c5e60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8303730386654400572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303730386654400575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 363c1c8ceb56cff42bc2045f8e4bef6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameIsPaused: 0
-  characterMenuOn: 0
 --- !u!114 &8303730386654400547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +84,38 @@ MonoBehaviour:
   ligth_upgradePoints: 0
   technology_upgradePoints: 0
   melee_upgradePoints: 0
+--- !u!114 &7005979003533226293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303730386654400575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c1c8ceb56cff42bc2045f8e4bef6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameIsPaused: 0
+  characterMenuOn: 0
+--- !u!114 &5951074156774075801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303730386654400575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce850df198c4f50499d15a536587ca86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigun_fireRate: 0
+  minigunBullet: {fileID: 697272606651380770, guid: f2b2b42c23335de43a138f37fdf61f64,
+    type: 3}
+  shotgun_fireRate: 0
+  shotgunBullet: {fileID: 697272606651380770, guid: f2b2b42c23335de43a138f37fdf61f64,
+    type: 3}
 --- !u!114 &8303730386654400546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,19 +132,3 @@ MonoBehaviour:
   tutorialNumer: 0
   tutorialCanvas: {fileID: 0}
   timeScale: 0.05
---- !u!114 &5951074156774075801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303730386654400575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce850df198c4f50499d15a536587ca86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minigunBullet: {fileID: 697272606651380770, guid: f2b2b42c23335de43a138f37fdf61f64,
-    type: 3}
-  shotgunBullet: {fileID: 697272606651380770, guid: f2b2b42c23335de43a138f37fdf61f64,
-    type: 3}

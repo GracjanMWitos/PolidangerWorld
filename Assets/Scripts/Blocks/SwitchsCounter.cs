@@ -12,7 +12,7 @@ public class SwitchsCounter : MonoBehaviour
     [SerializeField] private GameObject go;
     void Start()
     {
-        score = GameObject.Find("Menagers").GetComponent<ScoreMenager>();
+        score = GameObject.Find("Managers").GetComponent<ScoreMenager>();
     }
 
     // Update is called once per frame

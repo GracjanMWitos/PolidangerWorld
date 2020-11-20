@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6621790487032113330}
   - component: {fileID: 6621790487032113329}
+  - component: {fileID: 6427875254608526137}
   m_Layer: 0
   m_Name: Portal'sLight
   m_TagString: Untagged
@@ -80,6 +81,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6427875254608526137
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621790487032113328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8ddcae4b51f56d41abc8a84e0c9d39b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6621790487530702832
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +196,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9558306, y: 0}
+  m_Offset: {x: 0.89846706, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -187,7 +207,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.08833885, y: 2}
+  m_Size: {x: 0.20306587, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &6621790487530702835
 MonoBehaviour:
@@ -201,9 +221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2566fe3ceefda4478416474f3978974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisPortalChangeLevel: 1
-  sceneName: Level_1
+  thisPortalIsChangingLevel: 0
+  thisPortalIsStartingLevel: 0
+  nextSceneName: 
   secondPortal: {fileID: 0}
   player: {fileID: 0}
   pause: {fileID: 0}
-  distanceToPortal: 0
+  anim: {fileID: 6427875254608526137}
