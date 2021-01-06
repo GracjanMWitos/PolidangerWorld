@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Vector3 TargetOffset;
     [SerializeField] private float cameraMovementSpeed;
-    [SerializeField] private Transform target;
+    [SerializeField] public Transform target;
     private OperationCenter opc;
     private GameObject cameraCenterPoint;
 
@@ -25,25 +25,14 @@ public class CameraController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-       // LockAtObjectChange();
+        if (Time.timeScale == 1f && target == null)
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        else if(target == null)
+            target = GameObject.Find("OperationCenter").transform;
+        cameraCenterPoint.transform.position = target.position;
     }
     void MoveCamera()
     {
-        transform.position = target.position + TargetOffset;
-       // transform.position = Vector3.Lerp(transform.position, cameraCenterPoint.transform.position - TargetOffset, cameraMovementSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, cameraCenterPoint.transform.position + TargetOffset, cameraMovementSpeed * Time.deltaTime);
     }
-   /* public void LockAtObjectChange()
-    {
-        if (!opc.charactersMenuStarted)
-        {
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
-            cameraCenterPoint.transform.position = target;
-        }
-        if (opc.charactersMenuStarted)
-        {
-            target = GameObject.Find("OperationCenter").GetComponent<Transform>().position;
-            cameraCenterPoint.transform.position = target;
-
-        }
-    }*/
 }

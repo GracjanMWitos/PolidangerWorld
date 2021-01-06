@@ -7,7 +7,6 @@ public class TowerAI : MonoBehaviour
     private Vector3 target;
     private Transform operationCenter;
     private Transform playerPos;
-    private PauseScript pause;
 
     public Transform gun;
     public Rigidbody2D bullet;
@@ -32,7 +31,6 @@ public class TowerAI : MonoBehaviour
     private void Start()
     {
         operationCenter = GameObject.Find("OperationCenter").GetComponent<Transform>();
-        pause = GameObject.Find("Managers").GetComponent<PauseScript>();
         anim = GetComponent<Animator>();
         anim.SetBool("isShoting1", false);
         anim.SetBool("isShoting2", false);
@@ -60,13 +58,7 @@ public class TowerAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (pause.characterMenuOn)
-            target = operationCenter.transform.position;
-        if (pause.characterMenuOn == false)
-        {
-            playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            target = playerPos.position;
-        }
+
     }
     void Is1()
     {

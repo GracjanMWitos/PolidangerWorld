@@ -8,7 +8,6 @@ TagManager:
   - PowerBlock
   - PessimismBlock
   - Enemy
-  - OperationCenter
   - Wall
   - RedBlocks
   - EnemyBullet
@@ -16,6 +15,9 @@ TagManager:
   - BlueSpace
   - Floor
   - Interactivable
+  - XP
+  - OperationCenter
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -50,12 +52,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Playground
+    uniqueID: 1725399909
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Player
     uniqueID: 1192441149
     locked: 0
-  - name: Playground
-    uniqueID: 1725399909
+  - name: Background
+    uniqueID: 2004652317
     locked: 0

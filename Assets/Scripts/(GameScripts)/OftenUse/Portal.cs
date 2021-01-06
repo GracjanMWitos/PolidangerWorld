@@ -7,37 +7,40 @@ using UnityEngine.UIElements;
 
 public class Portal : MonoBehaviour
 {
+    [SerializeField]private GameObject canvas;
     [SerializeField] private bool thisPortalIsChangingLevel;
     [SerializeField] private bool thisPortalIsStartingLevel;
     [SerializeField] private string nextSceneName;
     [SerializeField] private GameObject secondPortal;
     [SerializeField] private GameObject player;
-    [SerializeField] private PauseScript pause;
     private LevelManager levelManager;
     [SerializeField] private Animator anim;
     public float timer;
-    void Start()
+
+    void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        pause = GameObject.Find("Managers").GetComponent<PauseScript>();
+        GameManager gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
+        foreach (GameObject gameObject in gameManager.objectsThatPausingGame)
+            if (gameObject.name == ("LeaveLevel"))
+                canvas = gameObject;
         levelManager = GameObject.Find("Managers").GetComponent<LevelManager>();
         if (thisPortalIsChangingLevel)
         {
             anim.enabled = false;
         }
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        timer -= Time.deltaTime;
-        if (pause.characterMenuOn == false) player = GameObject.FindGameObjectWithTag("Player");
-        if (pause.characterMenuOn) player = null; 
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+        if (timer > 0) timer -= Time.deltaTime;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             if (thisPortalIsChangingLevel)
-                levelManager.SelectLevel(nextSceneName);
+                canvas.SetActive(true);
 
             if (!thisPortalIsChangingLevel && !thisPortalIsStartingLevel && timer <= 0) 
             {

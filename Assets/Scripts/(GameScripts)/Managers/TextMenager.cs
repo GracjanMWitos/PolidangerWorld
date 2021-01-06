@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class TextMenager : MonoBehaviour
@@ -9,7 +10,6 @@ public class TextMenager : MonoBehaviour
     [SerializeField] private int tutorialNumer = 0;
     [SerializeField] GameObject tutorialCanvas;
     [SerializeField] float timeScale;
-
     private enum States {T1,T2, T3, T4, T5, T6, T7, T8 };
 
 
@@ -95,7 +95,7 @@ public class TextMenager : MonoBehaviour
 
     void Update()
     {
-        if(St == States.T1) { Tutorial_1(); }
+        if (St == States.T1) { Tutorial_1(); }
         else if (St == States.T2) { Tutorial_2(); }
         else if (St == States.T3)  { Tutorial_3(); }
         else if (St == States.T4) { Tutorial_4(); }

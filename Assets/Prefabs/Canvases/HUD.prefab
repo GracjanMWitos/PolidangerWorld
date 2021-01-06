@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1408173851728443942}
   - component: {fileID: 1408173851728443943}
   m_Layer: 5
-  m_Name: HUDCanvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 1408173852377171006}
   - component: {fileID: 1408173852377171007}
   m_Layer: 5
-  m_Name: GamerOverText
+  m_Name: GameOverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 7932374056468733991}
   - component: {fileID: 7932374056468733990}
   m_Layer: 5
-  m_Name: ElementsText
+  m_Name: XPText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,7 +1320,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Score 0
+  m_Text: XP 0
 --- !u!1 &7932374056840798659
 GameObject:
   m_ObjectHideFlags: 0

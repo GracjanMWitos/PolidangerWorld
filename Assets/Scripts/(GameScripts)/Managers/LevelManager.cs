@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour {
 
 
-
     public void LoadNextLevel()
     {
         Debug.Log("Trafiłeś do " + SceneManager.GetActiveScene().buildIndex + 1 + " levela");
@@ -22,5 +21,6 @@ public class LevelManager : MonoBehaviour {
 
     [System.Obsolete]
     public void ReplayLevel() => Application.LoadLevel(Application.loadedLevel);
+    public void ResumePlay() => Time.timeScale = 1f;
 
 }

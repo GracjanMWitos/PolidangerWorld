@@ -556,7 +556,7 @@ MonoBehaviour:
   disactiveCollider: {fileID: 3918454750714585555}
   playerIsClose: 0
   playerGO: {fileID: 0}
-  O_CIsConectedToSlot: 0
+  _OCIsConectedToSlot: 0
   body: {fileID: 5038384655131782100, guid: cf587235e2e2c284a925d18cde4f9def, type: 3}
   mech_1: {fileID: 7185034801943253716, guid: e236eb5ae2d710945b1afe65a4c15a46, type: 3}
   mech_2: {fileID: 0}
