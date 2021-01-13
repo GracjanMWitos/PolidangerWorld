@@ -6,9 +6,9 @@ using UnityEngine;
 public class BasicEnemy : EnemyAI.ShootingEnemy
 {
 
-    public override void FixedUpdate()
+    public override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
     }
 }
 

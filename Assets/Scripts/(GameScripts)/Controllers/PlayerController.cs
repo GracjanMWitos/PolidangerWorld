@@ -101,15 +101,6 @@ public class PlayerController : MonoBehaviour
         currenrPowerPoints = maxPowerPointsCapacity;
         currentEP = maxEPCapacity;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            transform.position = new Vector2(operationCenter.transform.position.x, +
-                operationCenter.transform.position.y);
-        }
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))

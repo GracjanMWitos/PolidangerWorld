@@ -7,15 +7,17 @@ using UnityEngine.SocialPlatforms.Impl;
 public abstract class EnemyAI : MonoBehaviour
 {
     GameManager gameManager;
-    [SerializeField] public Transform playerPos;
+    [SerializeField] public GameObject player;
     [SerializeField] public float distanceToSeePlayer = 4;
     [SerializeField] public float speed = 2;
-
+    public int damage;
     public double distanceToKeepFromPlayer = 3f;
+    public double distanceToMeleeAttack;
     public Rigidbody2D bullet;
     private Vector3 target;
     private Transform operationCenter;
     [SerializeField] private float timer;
+    public double timeToNextAttack;
     public int xp; // xp that enemy left after death
 
     public void Awake()
@@ -23,26 +25,34 @@ public abstract class EnemyAI : MonoBehaviour
         operationCenter = GameObject.Find("OperationCenter").GetComponent<Transform>();
         gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
     }
-    public virtual void FixedUpdate()
+    public virtual void Update()
     {
-        if(playerPos == null)
-            playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        target = playerPos.position;
+        if (timer > 0)
+            timer -= Time.deltaTime;
+        if(player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+        target = player.transform.position;
         Vector3 dir = target - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        if (Vector2.Distance(transform.position, playerPos.position) < distanceToSeePlayer && Vector2.Distance(transform.position, playerPos.position) > distanceToKeepFromPlayer)
+        if (Vector2.Distance(transform.position, player.transform.position) <= distanceToMeleeAttack)
+            FirstActivity();
+        if (Vector2.Distance(transform.position, player.transform.position) < distanceToSeePlayer && Vector2.Distance(transform.position, player.transform.position) > distanceToKeepFromPlayer)
         {
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
         }
-        if (Vector2.Distance(transform.position, playerPos.position) <= distanceToSeePlayer)
+        if (Vector2.Distance(transform.position, player.transform.position) <= distanceToSeePlayer)
         {
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            DoSomething();
+            SecondActivity();
         }
         
     }
-    public virtual void DoSomething()
+    public virtual void SecondActivity()
+    {
+
+    }
+    public virtual void FirstActivity()
     {
 
     }
@@ -51,7 +61,12 @@ public abstract class EnemyAI : MonoBehaviour
         gameManager.enemyLeft -= 1;
         gameManager.xp += gameManager.xp_multipilier * xp;
         Destroy(gameObject);
-
+    }
+    void TakeDamages()
+    {
+        if(timer <= 0)
+        player.GetComponent<PlayerController>().currentHealthPoints -= (int)damage;
+        timer = (float)timeToNextAttack;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -60,11 +75,16 @@ public abstract class EnemyAI : MonoBehaviour
             Death();
         }
     }
+    
     public abstract class ShootingEnemy : EnemyAI
     {
-        public override void DoSomething()
+        public override void SecondActivity()
         {
             Instantiate(bullet, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity);
+        }
+        public override void FirstActivity()
+        {
+            TakeDamages();
         }
     }
 }
