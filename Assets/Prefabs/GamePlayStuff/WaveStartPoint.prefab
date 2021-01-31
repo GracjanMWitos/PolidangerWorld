@@ -94,7 +94,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,20 +172,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7943614260854e40921eb8f2cb1a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notStarted: {fileID: 0}
-  started: {fileID: 0}
-  completed: {fileID: 0}
-  enemyNumberToSpawn: 20
+  spawnsList: []
+  enemiesToSpawn: 0
+  towersToSpawn: 0
   objectsToActive: {fileID: 0}
   gate: {fileID: 0}
   enemy: {fileID: 3389312563288524670, guid: fe1827d278d3d2948a465413634824bc, type: 3}
-  enemySpots:
-  - {fileID: 6809914151201208584}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  enemy_Spawns: []
   timer: 0
   timeBtwSpawns: 0.8
 --- !u!61 &1575727545315047193

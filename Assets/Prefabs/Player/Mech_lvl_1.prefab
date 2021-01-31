@@ -126,7 +126,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,7 +324,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -407,21 +407,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 200
   operationCenter: {fileID: 0}
-  healthSlider: {fileID: 0}
+  xp_Multiplier: 0
+  playerLevel: 0
+  health_Slider: {fileID: 0}
   currentHealthPoints: 0
   maxHealthPointsCapacity: 0
+  Power_Slider: {fileID: 0}
   currenrPowerPoints: 0
   maxPowerPointsCapacity: 0
-  currentEnginaryPoints: 0
-  maxEnginaryPointsCapacity: 0
-  highlightObject: {fileID: 7557926970214044013}
+  EnginaryPoints_Slider: {fileID: 0}
+  currentEP: 0
+  maxEPCapacity: 0
+  xp: 0
   timeToDieOnRedBlock: 0.7
   timeSpendedOnRedBlock: 0
-  playerisDead: 0
   playerisOnRedBlock: 0
-  canvas: {fileID: 0}
-  timer: 0
-  mousePosition: {x: 0, y: 0}
 --- !u!1 &7185034802084264726
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +549,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

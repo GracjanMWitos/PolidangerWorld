@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         Quaternion rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward) * Quaternion.Euler(0, 0, 90), 10*Time.deltaTime);
         transform.rotation = rotation;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
-        Debug.Log(transform.eulerAngles);
         movement.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         movement.y = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
