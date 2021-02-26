@@ -10,11 +10,10 @@ public abstract class BasicEnemyAI : MonoBehaviour
     public AIPath aiPath;
     [SerializeField] public float distanceToSeePlayer = 4;
     [SerializeField] public float speed = 2;
-    private Animator damageAnim;
     private bool playerGetsDamages;
     private int hp;
     public int xp; // xp that enemy left after death
-
+    private Animator damageAnim;
     public void Awake()
     {
         gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
@@ -24,10 +23,9 @@ public abstract class BasicEnemyAI : MonoBehaviour
     }
     public virtual void Update()
     {
-        Debug.Log(aiPath.remainingDistance);
         if(aiPath.reachedEndOfPath)
         {
-            Attack();
+            //Attack();
         }
         if (aiPath.remainingDistance >= distanceToSeePlayer)
         {
@@ -37,7 +35,6 @@ public abstract class BasicEnemyAI : MonoBehaviour
         else
         {
             aiPath.canMove = true;
-            Debug.Log(aiPath.remainingDistance);
         }
     }
     public virtual void Attack(){
@@ -54,6 +51,13 @@ public abstract class BasicEnemyAI : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             damageAnim.SetTrigger("Starting");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            damageAnim.SetTrigger("Fading");
         }
     }
 }
